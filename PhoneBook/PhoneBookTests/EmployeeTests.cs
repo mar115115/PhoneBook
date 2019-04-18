@@ -8,7 +8,7 @@
     using NUnit.Framework;
     using PhoneBook;
     [TestFixture]
-    public class Class1
+    public class EmployeeTests
     {
         [Test]
         public void Employee_PrintBasicInfo_Output()

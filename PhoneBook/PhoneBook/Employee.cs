@@ -8,11 +8,11 @@
 
     public class Employee
     {
-        public Employee(int badgeId, string name, string surName, Departments department, string internalPhone)
+        public Employee(string name, string surName, int badgeId, Departments department, string internalPhone)
         {
-            this.BadgeID = badgeId;
             this.Name = name;
             this.SurName = surName;
+            this.BadgeID = badgeId;
             this.Department = department;
             this.InternalPhone = internalPhone;
         }

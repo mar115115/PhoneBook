@@ -1,27 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PhoneBook
+﻿namespace PhoneBook
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class Employee
     {
-        public int BadgeID { get; }
-        public string Name { get; }
-        public string SurName { get; }
-        public Departments Department { get; }
-        public string InternalPhone { get; }
-
-        public Employee(int BadgeId, string Name, string SurName, Departments Department, string InternalPhone)
+        public Employee(int badgeId, string name, string surName, Departments department, string internalPhone)
         {
-            this.BadgeID = BadgeId;
-            this.Name = Name;
-            this.SurName = SurName;
-            this.Department = Department;
-            this.InternalPhone = InternalPhone;
+            this.BadgeID = badgeId;
+            this.Name = name;
+            this.SurName = surName;
+            this.Department = department;
+            this.InternalPhone = internalPhone;
         }
+
+        public int BadgeID { get; }
+
+        public string Name { get; }
+
+        public string SurName { get; }
+
+        public Departments Department { get; }
+
+        public string InternalPhone { get; }
 
         public string PrintFullInfo()
         {

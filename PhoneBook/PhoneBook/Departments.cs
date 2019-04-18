@@ -8,11 +8,6 @@
 
     public enum Departments
     {
-        /// <summary>
-        /// ///Wroclaw na poludniu
-        /// ///Szczecin na polnocy
-        /// ///Koszalin - gdzie?
-        /// </summary>
         Wroclaw, 
         Szczecin,
         Koszalin 

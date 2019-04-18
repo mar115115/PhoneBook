@@ -23,18 +23,26 @@
             while (true)
             {
                 var xcomm = Console.ReadLine();
-                
-                if(xcomm=="QUIT" || xcomm=="Quit" || xcomm=="quit")
+                var commands = xcomm.Split(' ');
+                if(commands[0]=="QUIT" || commands[0] == "Quit" || commands[0] == "quit")
                 {
                     break;
                 }
-                else
+                else if (commands[0]=="Location" || commands[0] == "location" || commands[0] == "LOCATION")
                 {
                     Departments temp;
-                    Enum.TryParse(xcomm, out temp);
+                    Enum.TryParse(commands[1], out temp);
                     testPhoneBook.employeesFromLocation(temp);
                 }
-                
+                else if(commands[0] == "BadgeID" || commands[0] == "Badge" || commands[0] == "BadgeId" || commands[0] == "badgeid" || commands[0] == "badge")
+                {
+                    int badgeInput = Int32.Parse(commands[1]);
+                    testPhoneBook.employeeByBadgeId(badgeInput).PrintFullInfo();
+                }
+                else
+                {
+                    Console.WriteLine("Unknown command");
+                }
             }
         }
     }

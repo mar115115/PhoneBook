@@ -31,10 +31,11 @@ namespace PhoneBook
 
         }
 
-        //public void printEmployees(List<Employee> empList)
-        //{
-
-        //}
+        public Employee employeeByBadgeId(int badgeId)
+        {
+            Employee employee = allEmployeesList.Where(x => x.BadgeID == badgeId).First();
+            return employee;
+        }
 
     }
 }

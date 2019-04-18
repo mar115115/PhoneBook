@@ -36,7 +36,6 @@
             Console.WriteLine($"SurName:{SurName}");
             Console.WriteLine($"Department:{Department}");
             Console.WriteLine($"InternalPhone:{InternalPhone}");
-
             return output;
         }
 

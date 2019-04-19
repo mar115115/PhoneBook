@@ -25,7 +25,7 @@
                 "\n*Quit - quits application;" +
                 "\n*Location $x - lists all employees from given location;" +
                 "\n*Badge/BadgeId $x - prints out employee with given badgeId; " +
-                "\n*Name $x - lists all empployees with given name;" +
+                "\n*Name $x - lists all employees with given name;" +
                 "\n*Add $name $surname $badge $department $phone - add employee, by providing info as parameteres separated with space" +
                 "\n-------------------------------------------------" +
                 "\n");
@@ -33,43 +33,100 @@
             {
                 var xcomm = Console.ReadLine();
                 var commands = xcomm.Split(' ');
-                if(commands[0]=="QUIT" || commands[0] == "Quit" || commands[0] == "quit")
+                if (commands[0] == "QUIT" || commands[0] == "Quit" || commands[0] == "quit")
                 {
                     break;
                 }
-                else if (commands[0]=="Location" || commands[0] == "location" || commands[0] == "LOCATION")
+                else if (commands[0] == "Location" || commands[0] == "location" || commands[0] == "LOCATION")
                 {
-                    if (commands[1]!=String.Empty)
+                    try
                     {
-                        Departments temp;
-                        Enum.TryParse(commands[1], out temp);
-                        var list = testPhoneBook.employeesFromLocation(temp);
-                        if (list.Count == 0)
+                        if (commands[1] != String.Empty)
                         {
-                            Console.WriteLine("0 wyników wyszukiwania");
+                            Departments temp;
+                            Enum.TryParse(commands[1], out temp);
+                            if(temp==Departments.unexpected)
+                            {
+                                Console.WriteLine("Incorrect department provided");
+                            }
+                            else
+                            {
+                                var list = testPhoneBook.employeesFromLocation(temp);
+                                if (list.Count == 0)
+                                {
+                                    Console.WriteLine("0 search results");
+                                }
+                            }
                         }
                     }
-
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Incorrect number of parameters provided");
+                    }
                 }
-                else if(commands[0] == "BadgeID" || commands[0] == "Badge" || commands[0] == "BadgeId" || commands[0] == "badgeid" || commands[0] == "badge" || commands[0] == "BADGE" || commands[0] == "BADGEID")
+                else if (commands[0] == "BadgeID" || commands[0] == "Badge" || commands[0] == "BadgeId" || commands[0] == "badgeid" || commands[0] == "badge" || commands[0] == "BADGE" || commands[0] == "BADGEID")
                 {
-                    int badgeInput = Int32.Parse(commands[1]);
-                    testPhoneBook.employeeByBadgeId(badgeInput).PrintFullInfo();
+                    try
+                    {
+                        int badgeInput = Int32.Parse(commands[1]);
+                        testPhoneBook.employeeByBadgeId(badgeInput).PrintFullInfo();
+                    }
+                    catch (SystemException e)
+                    {
+                        if (e is FormatException)
+                            Console.WriteLine("Incorrect Badge number, please provide it as integer");
+                        else if (e is IndexOutOfRangeException)
+                        {
+                            Console.WriteLine("Incorrect number of parameters provided");
+                        }
+                        else
+                            throw;
+                    }
                 }
                 else if (commands[0] == "NAME" || commands[0] == "Name" || commands[0] == "name")
                 {
-                    var list = testPhoneBook.employeesByName(commands[1]);
-                    if(list.Count==0)
+                    try
+                    { 
+                        var list = testPhoneBook.employeesByName(commands[1]);
+                        if (list.Count == 0)
+                        {
+                            Console.WriteLine("0 search results");
+                        }
+                    }
+                    catch (Exception e)
                     {
-                        Console.WriteLine("0 wyników wyszukiwania");
+                        Console.WriteLine("Incorrect number of parameters provided");
                     }
                 }
                 else if (commands[0] == "ADD" || commands[0] == "Add" || commands[0] == "add")
                 {
-                    Departments temp;
-                    Enum.TryParse(commands[4], out temp);
-                    Employee emp4 = new Employee(commands[1], commands[2], Int32.Parse(commands[3]), temp, commands[5]);
-                    testPhoneBook.addEmployee(emp4);
+                    try
+                    {
+                        Departments temp;
+                        Enum.TryParse(commands[4], out temp);
+                        if (temp == Departments.unexpected)
+                        {
+                            Console.WriteLine("Incorrect department provided");
+                        }
+                        else
+                        {
+                            int badgeInput = Int32.Parse(commands[3]);
+                            Employee emp4 = new Employee(commands[1], commands[2], Int32.Parse(commands[3]), temp, commands[5]);
+                            testPhoneBook.addEmployee(emp4);
+                            emp4.PrintFullInfo();
+                        }
+                    }
+                    catch (SystemException e)
+                    {
+                        if (e is FormatException)
+                            Console.WriteLine("Incorrect Badge number, please provide it as integer");
+                        else if (e is IndexOutOfRangeException)
+                        {
+                            Console.WriteLine("Incorrect number of parameters provided");
+                        }
+                        else
+                            throw;
+                    }
                 }
                 else
                 {

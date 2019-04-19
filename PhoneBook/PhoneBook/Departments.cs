@@ -8,6 +8,7 @@
 
     public enum Departments
     {
+        unexpected,
         Wroclaw, 
         Szczecin,
         Koszalin,

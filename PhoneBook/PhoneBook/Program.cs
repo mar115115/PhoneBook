@@ -19,8 +19,16 @@
             testPhoneBook.addEmployee(emp1);
             testPhoneBook.addEmployee(emp2);
             testPhoneBook.addEmployee(emp3);
-            Console.WriteLine("Dda phonebook");
-            Console.WriteLine("Available commands are: quit; location x; badge/badgeid x; name x; add $name $surname $badge $department $internalPhone");
+            Console.WriteLine("The phonebook");
+            Console.WriteLine("-------------------------------------------------");
+            Console.Write("Available commands are:" +
+                "\n*Quit - quits application;" +
+                "\n*Location $x - lists all employees from given location;" +
+                "\n*Badge/BadgeId $x - prints out employee with given badgeId; " +
+                "\n*Name $x - lists all empployees with given name;" +
+                "\n*Add $name $surname $badge $department $phone - add employee, by providing info as parameteres separated with space" +
+                "\n-------------------------------------------------" +
+                "\n");
             while (true)
             {
                 var xcomm = Console.ReadLine();
@@ -31,13 +39,17 @@
                 }
                 else if (commands[0]=="Location" || commands[0] == "location" || commands[0] == "LOCATION")
                 {
-                    Departments temp;
-                    Enum.TryParse(commands[1], out temp);
-                    var list = testPhoneBook.employeesFromLocation(temp);
-                    if (list.Count == 0)
+                    if (commands[1]!=String.Empty)
                     {
-                        Console.WriteLine("0 wyników wyszukiwania");
+                        Departments temp;
+                        Enum.TryParse(commands[1], out temp);
+                        var list = testPhoneBook.employeesFromLocation(temp);
+                        if (list.Count == 0)
+                        {
+                            Console.WriteLine("0 wyników wyszukiwania");
+                        }
                     }
+
                 }
                 else if(commands[0] == "BadgeID" || commands[0] == "Badge" || commands[0] == "BadgeId" || commands[0] == "badgeid" || commands[0] == "badge" || commands[0] == "BADGE" || commands[0] == "BADGEID")
                 {
@@ -56,7 +68,6 @@
                 {
                     Departments temp;
                     Enum.TryParse(commands[4], out temp);
-                    //var list = testPhoneBook.employeesFromLocation(temp);
                     Employee emp4 = new Employee(commands[1], commands[2], Int32.Parse(commands[3]), temp, commands[5]);
                     testPhoneBook.addEmployee(emp4);
                 }

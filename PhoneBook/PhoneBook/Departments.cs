@@ -10,6 +10,8 @@
     {
         Wroclaw, 
         Szczecin,
-        Koszalin 
+        Koszalin,
+        ZielonaGora,
+        Krakow
     }
 }

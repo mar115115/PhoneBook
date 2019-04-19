@@ -30,7 +30,7 @@
         public string PrintFullInfo()
         {
             string output = $"BadgeID:{BadgeID} Name:{Name} SurName:{SurName} Department:{Department} InternalPhone:{InternalPhone}";
-
+            Console.WriteLine("------------------------------");
             Console.WriteLine($"BadgeID:{BadgeID}");
             Console.WriteLine($"Name:{Name}");
             Console.WriteLine($"SurName:{SurName}");
@@ -41,6 +41,7 @@
 
         public string PrintBasicInfo()
         {
+            Console.WriteLine("------------------------------");
             string output = $"Name:{Name} Department:{Department}";
             Console.WriteLine($"Name:{Name}");
             Console.WriteLine($"Department:{Department}");

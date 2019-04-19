@@ -69,7 +69,11 @@
                     try
                     {
                         int badgeInput = Int32.Parse(commands[1]);
-                        testPhoneBook.employeeByBadgeId(badgeInput).PrintFullInfo();
+                        Employee emp = testPhoneBook.employeeByBadgeId(badgeInput);
+                        if (emp!=null)
+                            emp.PrintFullInfo();
+                        else
+                            Console.WriteLine("0 search results");
                     }
                     catch (SystemException e)
                     {

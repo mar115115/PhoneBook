@@ -37,5 +37,14 @@ namespace PhoneBook
             return employee;
         }
 
+        public List<Employee> employeesByName(string name)
+        {
+            List<Employee> FilteredEmployeesList = allEmployeesList.Where(x => x.Name == name).ToList();
+            foreach (var x in FilteredEmployeesList)
+            {
+                x.PrintFullInfo();
+            }
+            return FilteredEmployeesList;
+        }
     }
 }

@@ -11,49 +11,53 @@
     [TestFixture]
     public class EmployeeTests
     {
+        // przed każdym testem wykonane
+        // [SetUp]
+        // public void SetUp()
+        private Employee testEmployee;
+        [SetUp]
+        public void SetUp()
+        {
+            this.testEmployee = new Employee("Wojciech", "Kuk", 1, Departments.Szczecin, "+48800700600");
+        }
+
         [Test]
         public void Employee_Creation()
         {
-            Employee emp = new Employee("Wojciech", "Kuk", 1, Departments.Szczecin, "+48800700600");
-
             Assert.Multiple(() =>
                 {
-                    Assert.AreEqual("Wojciech", emp.Name);
-                    Assert.AreEqual("Kuk", emp.SurName);
-                    Assert.AreEqual(1, emp.BadgeID);
-                    Assert.AreEqual(Departments.Szczecin, emp.Department);
-                    Assert.AreEqual("+48800700600", emp.InternalPhone);
+                    Assert.AreEqual("Wojciech", testEmployee.Name);
+                    Assert.AreEqual("Kuk", testEmployee.SurName);
+                    Assert.AreEqual(1, testEmployee.BadgeID);
+                    Assert.AreEqual(Departments.Szczecin, testEmployee.Department);
+                    Assert.AreEqual("+48800700600", testEmployee.InternalPhone);
                 });
-
         }
 
         [Test]
         public void Employee_PrintBasicInfo_Output()
         {
-            Employee emp = new Employee("Wojciech", "Kuk", 1, Departments.Szczecin, "+48800700600");
-            string basicInfo = emp.PrintBasicInfo();
+            string basicInfo = this.testEmployee.PrintBasicInfo();
 
-            Assert.AreEqual($"Name:{emp.Name} Department:{emp.Department}", basicInfo); //TODO asser Wojciech equal to basicin
+            Assert.AreEqual($"Name:{testEmployee.Name} Department:{testEmployee.Department}", basicInfo);
         }
 
         [Test]
         public void Employee_PrintFullInfo_Output()
         {
-            Employee emp = new Employee("Wojciech", "Kuk", 1, Departments.Szczecin, "+48800700600");
-            string fullInfo = emp.PrintFullInfo();
+            string fullInfo = this.testEmployee.PrintFullInfo();
 
-            Assert.AreEqual($"BadgeID:{emp.BadgeID} Name:{emp.Name} SurName:{emp.SurName} Department:{emp.Department} InternalPhone:{emp.InternalPhone}", fullInfo);
+            Assert.AreEqual($"BadgeID:{testEmployee.BadgeID} Name:{testEmployee.Name} SurName:{testEmployee.SurName} Department:{testEmployee.Department} InternalPhone:{testEmployee.InternalPhone}", fullInfo);
         }
 
         [Test]
         public void PhoneBook_EmployeeByBadgeId_Output()
         {
-            Employee emp0 = new Employee("Wojciech", "Kuk", 1, Departments.Szczecin, "+48800700600");
             Employee emp1 = new Employee("Michal", "Kukliński", 2, Departments.Wroclaw, "+48800700611");
             Employee emp2 = new Employee("Wojtek", "Pieróg", 3, Departments.Koszalin, "+48800700622");
             Employee emp3 = new Employee("Piotr", "Mak", 4, Departments.Szczecin, "+48800700633");
             Phonebook testPhoneBook = new Phonebook();
-            testPhoneBook.addEmployee(emp0);
+            testPhoneBook.addEmployee(this.testEmployee);
             testPhoneBook.addEmployee(emp1);
             testPhoneBook.addEmployee(emp2);
             testPhoneBook.addEmployee(emp3);
@@ -61,9 +65,27 @@
 
             Assert.AreEqual(emp2, found);
         }
-        //[Test]
-        //public void PhoneBook_PrintAllFromLocation()
-        //{
+
+        [Test]
+        public void PhoneBook_EmployeeByName_Output()
+        {
+            Employee emp1 = new Employee("Michal", "Kukliński", 2, Departments.Wroclaw, "+48800700611");
+            Employee emp2 = new Employee("Wojciech", "Pieróg", 3, Departments.Koszalin, "+48800700622");
+            Employee emp3 = new Employee("Piotr", "Mak", 4, Departments.Szczecin, "+48800700633");
+            Phonebook testPhoneBook = new Phonebook();
+            testPhoneBook.addEmployee(this.testEmployee);
+            testPhoneBook.addEmployee(emp1);
+            testPhoneBook.addEmployee(emp2);
+            testPhoneBook.addEmployee(emp3);
+            List<Employee> foundList = testPhoneBook.employeesByName("Wojciech");
+
+            Assert.AreEqual(2, foundList.Count);
+            Assert.AreEqual(testEmployee, foundList.First());
+        }
+
+        // [Test]
+        // public void PhoneBook_PrintAllFromLocation()
+        // {
         //    Employee emp0 = new Employee("Wojciech", "Kuk", 1, Departments.Szczecin, "+48800700600");
         //    Employee emp1 = new Employee("Michal", "Kukliński", 2, Departments.Wroclaw, "+48800700611");
         //    Employee emp2 = new Employee("Wojtek", "Pieróg", 3, Departments.Koszalin, "+48800700622");
@@ -74,9 +96,9 @@
         //    testPhoneBook.addEmployee(emp2);
         //    testPhoneBook.addEmployee(emp3);
 
-        //    testPhoneBook.employeesFromLocation(Departments.Szczecin);
+        ////    testPhoneBook.employeesFromLocation(Departments.Szczecin);
 
-        //   // Assert.AreEqual($"BadgeID:{emp.BadgeID} Name:{emp.Name} SurName:{emp.SurName} Department:{emp.Department} InternalPhone:{emp.InternalPhone}", fullInfo);
-        //}
+        //// Assert.AreEqual($"BadgeID:{testEmployee.BadgeID} Name:{testEmployee.Name} SurName:{testEmployee.SurName} Department:{testEmployee.Department} InternalPhone:{testEmployee.InternalPhone}", fullInfo);
+        // }
     }
 }
